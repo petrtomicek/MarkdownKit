@@ -10,3 +10,14 @@ target 'MarkdownKit_Example' do
   pod 'Nimble', '~> 3.0'
   end
 end
+
+
+post_install do |installer|
+    
+    # https://github.com/CocoaPods/CocoaPods/issues/5521#issuecomment-226328062
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '2.3'
+        end
+    end
+end

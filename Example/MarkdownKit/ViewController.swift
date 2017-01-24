@@ -16,12 +16,13 @@ class ViewController: UIViewController {
       textView.delegate = self
     }
   }
-  private let markdownParser = MarkdownParser()
+  private let textileParser = TextileParser()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    markdownParser.addCustomElement(MarkdownSubreddit())
-      textView.attributedText = markdownParser.parse(NSLocalizedString("Markdown", comment: "").stringByDecodingHTMLEntities)
+    textileParser.addCustomElement(MarkdownSubreddit())
+    
+      textView.attributedText = textileParser.parse(NSLocalizedString("Markdown", comment: "").stringByDecodingHTMLEntities)
     // Do any additional setup after loading the view, typically from a nib.
   }
   
