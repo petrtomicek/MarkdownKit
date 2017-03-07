@@ -1,20 +1,21 @@
 {
   "name": "MarkdownKit",
-  "version": "1.1.0",
+  "version": "3.0.0",
   "summary": "MarkdownKit is a customizable and extensible Markdown parser for iOS.",
   "description": "MarkdownKit is a customizable and extensible Markdown parser for iOS.\nIt supports many of the standard Markdown elements through the use of Regular\nExpressions. It also allows customization of font and color attributes for\nall the Markdown elements.",
-  "homepage": "https://github.com/ivanbruel/MarkdownKit",
+  "homepage": "https://github.com/tomaskraina/MarkdownKit",
   "screenshots": "https://raw.githubusercontent.com/ivanbruel/MarkdownKit/master/Resources/MarkdownKitExample.png",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "Ivan Bruel": "ivan.bruel@gmail.com"
+    "Ivan Bruel": "ivan.bruel@gmail.com",
+    "Tom Kraina": "tomas.kraina@gmail.com"
   },
   "source": {
     "git": "https://github.com/ivanbruel/MarkdownKit.git",
-    "tag": "1.1.0"
+    "tag": "3.0.0"
   },
   "social_media_url": "https://twitter.com/ivanbruel",
   "platforms": {

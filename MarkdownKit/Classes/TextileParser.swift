@@ -33,7 +33,7 @@ public class TextileParser {
     public let font: UIFont
     
     // MARK: Initializer
-    public init(font: UIFont = UIFont.systemFontOfSize(UIFont.smallSystemFontSize()),
+    public init(font: UIFont = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize),
                 automaticLinkDetectionEnabled: Bool = true,
                 customElements: [MarkdownElement] = []) {
         self.font = font
@@ -56,17 +56,17 @@ public class TextileParser {
     }
     
     public func removeCustomElement(element: MarkdownElement) {
-        guard let index = customElements.indexOf({ someElement -> Bool in
+        guard let index = customElements.index(where: { someElement -> Bool in
             return element === someElement
         }) else {
             return
         }
-        customElements.removeAtIndex(index)
+        customElements.remove(at: index)
     }
     
     // MARK: Parsing
     public func parse(markdown: String) -> NSAttributedString {
-        return parse(NSAttributedString(string: markdown))
+        return parse(markdown: NSAttributedString(string: markdown))
     }
     
     public func parse(markdown: NSAttributedString) -> NSAttributedString {
@@ -74,11 +74,11 @@ public class TextileParser {
         attributedString.addAttribute(NSFontAttributeName, value: font,
                                       range: NSRange(location: 0, length: attributedString.length))
         var elements: [MarkdownElement] = escapingElements
-        elements.appendContentsOf(defaultElements)
-        elements.appendContentsOf(customElements)
-        elements.appendContentsOf(unescapingElements)
+        elements.append(contentsOf: defaultElements)
+        elements.append(contentsOf: customElements)
+        elements.append(contentsOf: unescapingElements)
         elements.forEach { element in
-            if automaticLinkDetectionEnabled || element.dynamicType != MarkdownAutomaticLink.self {
+            if automaticLinkDetectionEnabled || type(of: element) != MarkdownAutomaticLink.self {
                 element.parse(attributedString)
             }
         }

@@ -11,7 +11,7 @@ import MarkdownKit
 
 class ViewController: UIViewController {
   
-  @IBOutlet private weak var textView: UITextView! {
+  @IBOutlet fileprivate weak var textView: UITextView! {
     didSet {
       textView.delegate = self
     }
@@ -20,9 +20,9 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    textileParser.addCustomElement(MarkdownSubreddit())
+    textileParser.addCustomElement(element: MarkdownSubreddit())
     
-      textView.attributedText = textileParser.parse(NSLocalizedString("Markdown", comment: "").stringByDecodingHTMLEntities)
+    textView.attributedText = textileParser.parse(markdown: NSLocalizedString("Markdown", comment: "").stringByDecodingHTMLEntities)
     // Do any additional setup after loading the view, typically from a nib.
   }
   
@@ -35,9 +35,9 @@ class ViewController: UIViewController {
 
 extension ViewController: UITextViewDelegate {
   
-  func textView(textView: UITextView, shouldInteractWithURL URL: NSURL,
-                inRange characterRange: NSRange) -> Bool {
-    UIApplication.sharedApplication().openURL(URL)
+  func textView(_ textView: UITextView, shouldInteractWith URL: URL,
+                in characterRange: NSRange) -> Bool {
+    UIApplication.shared.openURL(URL)
     return true
   }
   

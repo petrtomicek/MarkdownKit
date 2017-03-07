@@ -17,29 +17,29 @@ public class TextileLink: MarkdownLink {
         return TextileLink.regex
     }
     
-    override public func match(match: NSTextCheckingResult, attributedString: NSMutableAttributedString) {
+    override public func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) {
         
         let string = attributedString.string as NSString
-        let colonLocation = string.rangeOfString(":", options: [], range: match.range).location
+        let colonLocation = string.range(of: ":", options: [], range: match.range).location
         let linkRange = NSRange(location: colonLocation, length: match.range.length + match.range.location - colonLocation - 1)
         
-        let linkURLString = string.substringWithRange(NSRange(location: linkRange.location + 1, length: linkRange.length))
+        let linkURLString = string.substring(with: NSRange(location: linkRange.location + 1, length: linkRange.length))
         
         // deleting trailing markdown
         // needs to be called before formattingBlock to support modification of length
-        attributedString.deleteCharactersInRange(NSRange(location: linkRange.location - 1, length: linkRange.length + 2))
+        attributedString.deleteCharacters(in: NSRange(location: linkRange.location - 1, length: linkRange.length + 2))
         
         // deleting parenthesis with class or title info
         var deletedLength = 0
         let titleRange = NSRange(location: match.range.location, length: linkRange.location-match.range.location-1)
-        for range in rangesOfParentheses(string, inRange: titleRange).reverse() {
-            attributedString.deleteCharactersInRange(range)
+        for range in rangesOfParentheses(string: string, inRange: titleRange).reversed() {
+            attributedString.deleteCharacters(in: range)
             deletedLength += range.length
         }
         
         // deleting leading markdown
         // needs to be called before formattingBlock to provide a stable range
-        attributedString.deleteCharactersInRange(NSRange(location: match.range.location, length: 1))
+        attributedString.deleteCharacters(in: NSRange(location: match.range.location, length: 1))
         
         let formatRange = NSRange(location: match.range.location, length: colonLocation - match.range.location - 2 - deletedLength)
         formatText(attributedString, range: formatRange, link: linkURLString)
@@ -64,7 +64,7 @@ public class TextileLink: MarkdownLink {
         }
         
         for index in start ..< end {
-            let char = UnicodeScalar(string.characterAtIndex(index))
+            let char = UnicodeScalar(string.character(at: index))
             
             if char == "(" {
                 starts.append(index)
