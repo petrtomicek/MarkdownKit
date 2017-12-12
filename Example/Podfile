@@ -1,3 +1,5 @@
+platform :ios, '9.0'
+
 use_frameworks!
 
 target 'MarkdownKit_Example' do
@@ -15,7 +17,7 @@ post_install do |installer|
     # https://github.com/CocoaPods/CocoaPods/issues/5521#issuecomment-226328062
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '2.3'
+            config.build_settings['SWIFT_VERSION'] = '4.0'
         end
     end
 end
