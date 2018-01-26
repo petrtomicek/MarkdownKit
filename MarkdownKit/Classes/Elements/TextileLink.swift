@@ -21,9 +21,15 @@ public class TextileLink: MarkdownLink {
         
         let string = attributedString.string as NSString
         let colonLocation = string.range(of: ":", options: [], range: match.range).location
-        let linkRange = NSRange(location: colonLocation, length: match.range.length + match.range.location - colonLocation - 1)
+        var linkRange = NSRange(location: colonLocation, length: match.range.length + match.range.location - colonLocation - 1)
+        var linkURLString = string.substring(with: NSRange(location: linkRange.location + 1, length: linkRange.length))
         
-        let linkURLString = string.substring(with: NSRange(location: linkRange.location + 1, length: linkRange.length))
+        // Delete trailing punctunation
+        let punctuation = [".", ",", ":", ";", "!", "?", ")", "]"]
+        if let lastChar = linkURLString.last, punctuation.contains(String(lastChar)) {
+            linkURLString.removeLast()
+            linkRange = linkRange.addLength(-1)
+        }
         
         // deleting trailing markdown
         // needs to be called before formattingBlock to support modification of length
@@ -82,3 +88,8 @@ public class TextileLink: MarkdownLink {
     }
 }
 
+private extension NSRange {
+    func addLength(_ addition: Int) -> NSRange {
+        return NSRange(location: self.location, length: self.length + addition)
+    }
+}

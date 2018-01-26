@@ -45,7 +45,7 @@ public class TextileParser {
         
         self.automaticLinkDetectionEnabled = automaticLinkDetectionEnabled
         self.escapingElements = [codeEscaping, escaping]
-        self.defaultElements = [link, automaticLink, bold, italic]
+        self.defaultElements = [bold, italic, link, automaticLink]
         self.unescapingElements = [unescaping]
         self.customElements = customElements
     }
@@ -86,3 +86,4 @@ public class TextileParser {
     }
     
 }
+
