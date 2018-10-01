@@ -20,7 +20,11 @@ public class TextileLink: MarkdownLink {
     override public func match(_ match: NSTextCheckingResult, attributedString: NSMutableAttributedString) {
         
         let string = attributedString.string as NSString
-        let colonLocation = string.range(of: ":", options: [], range: match.range).location
+        var colonLocation = string.range(of: ":", options: [], range: match.range).location
+        let colonComponents = string.components(separatedBy: ":")
+        if colonComponents.count > 2 {
+           colonLocation = colonLocation + colonComponents[1].count + 1
+        }
         var linkRange = NSRange(location: colonLocation, length: match.range.length + match.range.location - colonLocation - 1)
         var linkURLString = string.substring(with: NSRange(location: linkRange.location + 1, length: linkRange.length))
         
